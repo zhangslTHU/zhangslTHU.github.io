@@ -118,10 +118,10 @@ magic zlier = Earth Science = welcome</title>
       <div id="imgs" class="pjax">
         <ul>
           <li class="item" data-background-image="http://wx4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
-          <li class="item" data-background-image="https://images6.alphacoders.com/817/817452.png"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
+          <li class="item" data-background-image="https://pic1.zhimg.com/v2-925686c6f46d8312e39d920acb72cb4c_r.jpg?source=1940ef5c"></li>
           <li class="item" data-background-image="https://images7.alphacoders.com/744/744860.png"></li>
           <li class="item" data-background-image="https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/dd451341f0e2a2f02e350dcc764e4fde.jpg"></li>
-          <li class="item" data-background-image="https://pic1.zhimg.com/v2-925686c6f46d8312e39d920acb72cb4c_r.jpg?source=1940ef5c"></li>
           <li class="item" data-background-image="https://i.loli.net/2020/10/30/rjdhcSgEN8COBPA.jpg"></li>
         </ul>
       </div>
@@ -160,7 +160,7 @@ magic zlier = Earth Science = welcome</title>
 
   <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="image" content="/images/maomi.jpg">
-    <meta itemprop="name" content="Shenglong Zhang">
+    <meta itemprop="name" content="Z-SL">
     <meta itemprop="description" content="welcome, DESS, THU">
   </span>
 
@@ -173,7 +173,7 @@ magic zlier = Earth Science = welcome</title>
 
     <p>   这里主要记录了安装<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYw=="> MPTRAC 模型</span>的过程（安装过程非常坎坷╯︿╰），需要注意的是 MPTRAC 的版本更新过程非常快，故记录在此的安装经验未必适用现在（第一次安装是在 20222 年 1 月，将近一周才安装成功；第二次更新 MPTRAC 是在 2022 年 8 月）</p>
 <h1 id="massive-parallel-trajectory-calculations-mptrac"><a class="markdownIt-Anchor" href="#massive-parallel-trajectory-calculations-mptrac">#</a> Massive-Parallel Trajectory Calculations (MPTRAC)</h1>
-<h2 id="1introduction"><a class="markdownIt-Anchor" href="#1introduction">#</a> 1.introduction</h2>
+<h1 id="1introduction"><a class="markdownIt-Anchor" href="#1introduction">#</a> 1.introduction</h1>
 <p><code>Massive-Parallel Trajectory Calculations (MPTRAC) </code> 是一种拉格朗日粒子扩散模型，用于分析对流层和平流层中的大气传输过程。</p>
 <p>特点：</p>
 <ul>
@@ -183,21 +183,21 @@ magic zlier = Earth Science = welcome</title>
 <li>具有粒子、集合、网格、样本和站点数据的各种输出方法； 用于直接可视化的 Gnuplot 界面</li>
 <li>MPTRAC 具有 MPI/OpenMP/OpenACC 混合并行化功能，可在 HPC 和 GPU 系统上高效使用。</li>
 </ul>
-<h2 id="2git命令"><a class="markdownIt-Anchor" href="#2git命令">#</a> 2.Git 命令</h2>
+<h1 id="2git命令"><a class="markdownIt-Anchor" href="#2git命令">#</a> 2.Git 命令</h1>
 <p>这一步主要是为了接下来安装 MPTRAC 做准备，使用 git 命令把安装包 pull 到本地；如果已安装 git，可忽略这一步。<br>
 通过 <code>win10+wsl+conda</code>  安装的方式，git 已经安装好了，可以在 conda 环境下，输入 <code>git --version</code>  命令检查一下版本。</p>
 <p>下面两行参数设置，就唯一标识了你自己，你在 Git 上所有的活动都会跟这两个参数相关联。这两条命令仅需要运行一次，后续就不再需要运行了。 <code>global</code>  这个参数是全局生效的，即所有项目都会用后面的 <code>user.name</code>  和 <code>user.email</code> ，如果把 global 参数去掉，那么就可以对不同的项目用不同的 user.name 和 user.email。参考<span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MveVlZQkppWWNIMjZzMTdNZ3VKdVpHdw=="> Git 版本控制</span></p>
-<figure class="highlight bash"><figcaption data-lang="bash"><span>h</span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token operator">&lt;</span>yourname<span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token operator">&lt;</span>youremail<span class="token operator">></span></pre></td></tr></table></figure><h2 id="3prerequisites"><a class="markdownIt-Anchor" href="#3prerequisites">#</a> 3.Prerequisites</h2>
+<figure class="highlight bash"><figcaption data-lang="bash"><span>h</span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token function">git</span> config <span class="token parameter variable">--global</span> user.name <span class="token operator">&lt;</span>yourname<span class="token operator">></span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token function">git</span> config <span class="token parameter variable">--global</span> user.email <span class="token operator">&lt;</span>youremail<span class="token operator">></span></pre></td></tr></table></figure><h1 id="3prerequisites"><a class="markdownIt-Anchor" href="#3prerequisites">#</a> 3.Prerequisites</h1>
 <p>本文档描述了在  <code>Linux</code>  系统上安装 MPTRAC。安装 MPTRAC 需要许多标准工具（ <code>gcc、git、make</code> ）和软件库。数值计算需要 <code>GNU Scientific Library</code> ，文件输入输出需要 <code>Unidata netCDF library</code> 。 MPTRAC git repository 中提供了这些库的副本。(以上是 <code>2022年1月</code> 官网上要求的 prerequistes，下图是 <code>2022年8月</code> 官网更新的 prerequisites)<br>
 <img data-src="1.png" alt title="图1 2022.08 prerequistes"></p>
 <p>可以看到两次要求的依赖包是不同，但在第一次安装时， <code>gcc、git、make</code>  这三个软件一个都不可以少，<span class="red">少了就安装不了</span>。</p>
-<h2 id="4installation"><a class="markdownIt-Anchor" href="#4installation">#</a> 4.Installation</h2>
+<h1 id="4installation"><a class="markdownIt-Anchor" href="#4installation">#</a> 4.Installation</h1>
 <p><code>下面通过wsl在本地E盘mptrac目录进行下载</code></p>
-<h3 id="1下载和更新"><a class="markdownIt-Anchor" href="#1下载和更新">#</a> 1. 下载和更新</h3>
+<h2 id="1下载和更新"><a class="markdownIt-Anchor" href="#1下载和更新">#</a> 1. 下载和更新</h2>
 <p>从 git repository（git 存储库）下载 MPTRAC 源代码，并更新</p>
 <figure class="highlight bash"><figcaption data-lang="bash"><span>h</span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token function">git</span> clone https://github.com/slcs-jsc/mptrac.git  <span class="token comment"># download the MPTRAC source code from the git repository</span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token function">git</span> pull https://github.com/slcs-jsc/mptrac.git  <span class="token comment">#To update an existing installation</span></pre></td></tr></table></figure><p><img data-src="2.png" alt title="图2"><br>
 <img data-src="3.png" alt title="图3"></p>
-<h3 id="2编译202201"><a class="markdownIt-Anchor" href="#2编译202201">#</a> 2. 编译 (2022.01)</h3>
+<h2 id="2编译202201"><a class="markdownIt-Anchor" href="#2编译202201">#</a> 2. 编译 (2022.01)</h2>
 <p>通过运行构建脚本来编译 MPTRAC 所需的 <code>GSL</code>  和  <code>netCDF</code>  库（ <code>2022年8月</code> 此段改成 <code>Several libraries</code>  provided along with MPTRAC can be compiled and installed by running the build script）</p>
 <figure class="highlight bash"><figcaption data-lang="bash"><span>h</span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token builtin class-name">cd</span> mptrac/libs</pre></td></tr><tr><td data-num="2"></td><td><pre>$ ./build.sh nc4</pre></td></tr></table></figure><div class="note info">
 <p>2022 年 8 月更新后，好像不会出现下面的问题，因为相关的库包作者都已经上传到 git repository，在安装时会自动下载到本地。若仍然编译不成功，可看接下来的前两部分 <code>(a) gcc, (b) make</code>  和  <code>编译(2022.08)</code> 。第三部分 <code>(c) 环境</code> 当时解决的时候太混乱了，未找到具体原因，因此写的也很不清楚，不建议看。</p>
@@ -207,7 +207,7 @@ magic zlier = Earth Science = welcome</title>
 而 <code>2022年8月</code> 仅是 <code>./build.sh</code> ，这是因为 <code>HDF5,zlib</code>  库本身被作者 Lars 放在 git repository 中了，在安装时（git clone）就会从 git repository 下载到本地了。<br>
 <img data-src="4.png" alt title="图4"></p>
 <p>编译时出现这个问题，说明 gcc 和 make 可能没有安装。</p>
-<h4 id="a-gcc"><a class="markdownIt-Anchor" href="#a-gcc">#</a> (a) gcc</h4>
+<h3 id="a-gcc"><a class="markdownIt-Anchor" href="#a-gcc">#</a> (a) gcc</h3>
 <p>查看 gcc 版本： <code>gcc -v</code> <br>
 <img data-src="5.png" alt title="图5"><br>
  上图说明没有 gcc，使用命令： <code>sudo apt install gcc</code> （若是不成功，先升级镜像源： <code>sudo apt-get update</code> ）成功后再查看 gcc 版本<br>
@@ -218,14 +218,14 @@ magic zlier = Earth Science = welcome</title>
 <img data-src="8.png" alt title="图8"><br>
  再： <code>sudo apt install netcdf-bin libnetcdf-dev libnetcdff-dev</code> <br>
 <img data-src="9.png" alt title="图9"></p>
-<h4 id="b-make"><a class="markdownIt-Anchor" href="#b-make">#</a> (b) make</h4>
+<h3 id="b-make"><a class="markdownIt-Anchor" href="#b-make">#</a> (b) make</h3>
 <p>查看 make 版本： <code>make -v</code> <br>
 <img data-src="10.png" alt title="图10"><br>
  安装： <code>sudo apt install make</code> <br>
 <img data-src="11.png" alt title="图11"><br>
  再： <code>sudo apt install libnetcdf-c++4-dev</code></p>
 <p><code>./build.sh</code>  不成功：<span class="red">若安装了最新的 MPTRAC 且安装了上面相关的库后编译仍不成功，先看 “编译（2022.08）”，最后再看 © 环境</span>：</p>
-<h4 id="c-环境可不看"><a class="markdownIt-Anchor" href="#c-环境可不看">#</a> (c) 环境（可不看）</h4>
+<h3 id="c-环境可不看"><a class="markdownIt-Anchor" href="#c-环境可不看">#</a> (c) 环境（可不看）</h3>
 <p><span class="label danger">这一部分当时未找到具体原因，解决的很混乱，写的也很混乱</span></p>
 <p>以上依赖库成功后，编译 <code>./build.sh nc4</code>  仍然出错：</p>
 <p>（1）此步骤未解决<br>
@@ -246,9 +246,9 @@ magic zlier = Earth Science = welcome</title>
 <img data-src="14.png" alt title="图14"><br>
 <img data-src="15.png" alt title="图15"><br>
 <img data-src="16.png" alt title="图16"></p>
-<h3 id="3编译202208"><a class="markdownIt-Anchor" href="#3编译202208">#</a> 3. 编译 (2022.08)</h3>
+<h2 id="3编译202208"><a class="markdownIt-Anchor" href="#3编译202208">#</a> 3. 编译 (2022.08)</h2>
 <p>下面通过 wsl 在本地 E 盘 mptrac 目录进行下载（ <code>base环境</code> ，不是 py38 环境）</p>
-<figure class="highlight bash"><figcaption data-lang="bash"><span>h </span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token function">git</span> pull https://github.com/slcs-jsc/mptrac.git  <span class="token comment"># update</span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token builtin class-name">cd</span> mptrac/libs  </pre></td></tr><tr><td data-num="3"></td><td><pre>$ ./build.sh  <span class="token comment"># compile</span></pre></td></tr></table></figure><h4 id="agit-pull不完整"><a class="markdownIt-Anchor" href="#agit-pull不完整">#</a> （a）git pull 不完整</h4>
+<figure class="highlight bash"><figcaption data-lang="bash"><span>h </span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token function">git</span> pull https://github.com/slcs-jsc/mptrac.git  <span class="token comment"># update</span></pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token builtin class-name">cd</span> mptrac/libs  </pre></td></tr><tr><td data-num="3"></td><td><pre>$ ./build.sh  <span class="token comment"># compile</span></pre></td></tr></table></figure><h3 id="agit-pull不完整"><a class="markdownIt-Anchor" href="#agit-pull不完整">#</a> （a）git pull 不完整</h3>
 <p>首先更新已安装的包，然后编译，但编译出错，显示没有 <code>gsl-2.7</code>  这个库。<br>
 <img data-src="17.png" alt title="图17"><br>
 虽然在 2022.01 时已经通过 <code>sudo apt install gsl-bin libgsl-dev</code>  这个命令安装了 gsl 库（之后又安装了一遍，显示已安装），但在编译时 <code>./build.sh</code>  仍然如上图报错，显示没有这个 <code>gsl-2.7</code>  库。这是因为安装的和 MPTRAC 想要的不是一个。</p>
@@ -257,7 +257,7 @@ magic zlier = Earth Science = welcome</title>
 <p>解决办法：从<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYy90cmVlL21hc3Rlci9saWJz">官网</span>下载缺少的压缩包到 <code>/mptrac/libs</code>  下面，然后 <code>./build.sh</code> <br>
 <img data-src="18.png" alt title="图18 官网"><br>
 <img data-src="19.png" alt title="图19 本地"></p>
-<h4 id="b-zstd包有问题"><a class="markdownIt-Anchor" href="#b-zstd包有问题">#</a> (b) zstd 包有问题</h4>
+<h3 id="b-zstd包有问题"><a class="markdownIt-Anchor" href="#b-zstd包有问题">#</a> (b) zstd 包有问题</h3>
 <p>下载完安装包后 <code>./build.sh</code> ，但仍然出错<br>
 <img data-src="20.jpg" alt title="图20"><br>
 问题：zstd 安装包有问题<br>
@@ -268,7 +268,7 @@ magic zlier = Earth Science = welcome</title>
 <p>这一次 build 会花很长时间，然后出现如下结果<br>
 这说明 those are variables you can use in the makefile；it means the libraries built without errors<br>
 <img data-src="23.png" alt title="图23"></p>
-<h3 id="4编辑makefile文件"><a class="markdownIt-Anchor" href="#4编辑makefile文件">#</a> 4. 编辑 Makefile 文件</h3>
+<h2 id="4编辑makefile文件"><a class="markdownIt-Anchor" href="#4编辑makefile文件">#</a> 4. 编辑 Makefile 文件</h2>
 <figure class="highlight bash"><figcaption data-lang="bash"><span>h</span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token builtin class-name">cd</span> mptrac/src</pre></td></tr><tr><td data-num="2"></td><td><pre>$ <span class="token function">vi</span> Makefile</pre></td></tr></table></figure><p>如果需要使用并行运算或者动态 gsl, netcdf 库的话，需要编辑 Makefile 文件（ <code>把MPI开关打开，取消static开关等</code> ），如果对 Makefile 进行了编辑，需要 “make” 一下，重新编译配置文件代码。<br>
 如果不需要编辑配置文件 Makefile，那么这一步就可略过。（注意因为没有 emacs 命令，所以使用 vim 命令（二者作用相同））</p>
 <p><img data-src="24.png" alt title="图24"><br>
@@ -277,7 +277,7 @@ magic zlier = Earth Science = welcome</title>
 最后编译 code： <code>make</code> ；再 run 例子检查是否安装成功： <code>make check</code> <br>
 <img data-src="27.png" alt title="图27"><br>
 <img data-src="28.png" alt title="图28 测试成功"></p>
-<h2 id="reference"><a class="markdownIt-Anchor" href="#reference">#</a> reference</h2>
+<h1 id="reference"><a class="markdownIt-Anchor" href="#reference">#</a> reference</h1>
 <p>(1) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYw==">MPTRAC</span><br>
 (2) <span class="exturl" data-url="aHR0cHM6Ly9tcC53ZWl4aW4ucXEuY29tL3MveVlZQkppWWNIMjZzMTdNZ3VKdVpHdw==">Git 版本控制</span></p>
 
@@ -294,7 +294,7 @@ magic zlier = Earth Science = welcome</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2022-08-28 21:54:19" itemprop="dateModified" datetime="2022-08-28T21:54:19+08:00">2022-08-28</time>
+    <time title="Modified: 2022-08-28 22:00:02" itemprop="dateModified" datetime="2022-08-28T22:00:02+08:00">2022-08-28</time>
   </span>
 </div>
 
@@ -305,17 +305,17 @@ magic zlier = Earth Science = welcome</title>
   <div id="qr">
       
       <div>
-        <img data-src="/images/wechatpay.png" alt="Shenglong Zhang WeChat Pay">
+        <img data-src="/images/wechatpay.png" alt="Z-SL WeChat Pay">
         <p>WeChat Pay</p>
       </div>
       
       <div>
-        <img data-src="/images/alipay.png" alt="Shenglong Zhang Alipay">
+        <img data-src="/images/alipay.png" alt="Z-SL Alipay">
         <p>Alipay</p>
       </div>
       
       <div>
-        <img data-src="/images/paypal.png" alt="Shenglong Zhang PayPal">
+        <img data-src="/images/paypal.png" alt="Z-SL PayPal">
         <p>PayPal</p>
       </div>
   </div>
@@ -326,7 +326,7 @@ magic zlier = Earth Science = welcome</title>
 <div id="copyright">
 <ul>
   <li class="author">
-    <strong>Post author:  </strong>Shenglong Zhang <i class="ic i-at"><em>@</em></i>Earth Science
+    <strong>Post author:  </strong>Z-SL <i class="ic i-at"><em>@</em></i>Earth Science
   </li>
   <li class="link">
     <strong>Post link: </strong>
@@ -349,7 +349,7 @@ magic zlier = Earth Science = welcome</title>
     <div class="item left">
       
 
-  <a href="/Tools-for-Win-system/setup%20website/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;10&#x2F;30&#x2F;rjdhcSgEN8COBPA.jpg" title="setup website">
+  <a href="/Tools-for-Win-system/setup%20website/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;i.loli.net&#x2F;2020&#x2F;10&#x2F;30&#x2F;Y1CBXqgeokEs457.jpg" title="setup website">
   <span class="type">Previous Post</span>
   <span class="category"><i class="ic i-flag"></i> Tools for Win-system</span>
   <h3>setup website</h3>
@@ -357,6 +357,14 @@ magic zlier = Earth Science = welcome</title>
 
     </div>
     <div class="item right">
+      
+
+  <a href="/Model/Model-installation/mptrac%20run/" itemprop="url" rel="next" data-background-image="http:&#x2F;&#x2F;wx4.sinaimg.cn&#x2F;large&#x2F;6833939bly1gicitht3xtj20zk0m8k5v.jpg" title="MPTRAC run">
+  <span class="type">Next Post</span>
+  <span class="category"><i class="ic i-flag"></i> Model installation</span>
+  <h3>MPTRAC run</h3>
+  </a>
+
     </div>
 </div>
 
@@ -373,25 +381,25 @@ magic zlier = Earth Science = welcome</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="Contents">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#massive-parallel-trajectory-calculations-mptrac"><span class="toc-number">1.</span> <span class="toc-text"> Massive-Parallel Trajectory Calculations (MPTRAC)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1introduction"><span class="toc-number">1.1.</span> <span class="toc-text"> 1.introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2git%E5%91%BD%E4%BB%A4"><span class="toc-number">1.2.</span> <span class="toc-text"> 2.Git 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3prerequisites"><span class="toc-number">1.3.</span> <span class="toc-text"> 3.Prerequisites</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4installation"><span class="toc-number">1.4.</span> <span class="toc-text"> 4.Installation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E4%B8%8B%E8%BD%BD%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 1. 下载和更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E7%BC%96%E8%AF%91202201"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 2. 编译 (2022.01)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-gcc"><span class="toc-number">1.4.2.1.</span> <span class="toc-text"> (a) gcc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-make"><span class="toc-number">1.4.2.2.</span> <span class="toc-text"> (b) make</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#c-%E7%8E%AF%E5%A2%83%E5%8F%AF%E4%B8%8D%E7%9C%8B"><span class="toc-number">1.4.2.3.</span> <span class="toc-text"> (c) 环境（可不看）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E7%BC%96%E8%AF%91202208"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 3. 编译 (2022.08)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#agit-pull%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="toc-number">1.4.3.1.</span> <span class="toc-text"> （a）git pull 不完整</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#b-zstd%E5%8C%85%E6%9C%89%E9%97%AE%E9%A2%98"><span class="toc-number">1.4.3.2.</span> <span class="toc-text"> (b) zstd 包有问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E7%BC%96%E8%BE%91makefile%E6%96%87%E4%BB%B6"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 4. 编辑 Makefile 文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#reference"><span class="toc-number">1.5.</span> <span class="toc-text"> reference</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#massive-parallel-trajectory-calculations-mptrac"><span class="toc-number">1.</span> <span class="toc-text"> Massive-Parallel Trajectory Calculations (MPTRAC)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1introduction"><span class="toc-number">2.</span> <span class="toc-text"> 1.introduction</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2git%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text"> 2.Git 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3prerequisites"><span class="toc-number">4.</span> <span class="toc-text"> 3.Prerequisites</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4installation"><span class="toc-number">5.</span> <span class="toc-text"> 4.Installation</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E4%B8%8B%E8%BD%BD%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="toc-number">5.1.</span> <span class="toc-text"> 1. 下载和更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E7%BC%96%E8%AF%91202201"><span class="toc-number">5.2.</span> <span class="toc-text"> 2. 编译 (2022.01)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-gcc"><span class="toc-number">5.2.1.</span> <span class="toc-text"> (a) gcc</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-make"><span class="toc-number">5.2.2.</span> <span class="toc-text"> (b) make</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-%E7%8E%AF%E5%A2%83%E5%8F%AF%E4%B8%8D%E7%9C%8B"><span class="toc-number">5.2.3.</span> <span class="toc-text"> (c) 环境（可不看）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3%E7%BC%96%E8%AF%91202208"><span class="toc-number">5.3.</span> <span class="toc-text"> 3. 编译 (2022.08)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#agit-pull%E4%B8%8D%E5%AE%8C%E6%95%B4"><span class="toc-number">5.3.1.</span> <span class="toc-text"> （a）git pull 不完整</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-zstd%E5%8C%85%E6%9C%89%E9%97%AE%E9%A2%98"><span class="toc-number">5.3.2.</span> <span class="toc-text"> (b) zstd 包有问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%E7%BC%96%E8%BE%91makefile%E6%96%87%E4%BB%B6"><span class="toc-number">5.4.</span> <span class="toc-text"> 4. 编辑 Makefile 文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#reference"><span class="toc-number">6.</span> <span class="toc-text"> reference</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="Related">
         <ul>
-          <li class="active"><a href="/Model/Model-installation/mptrac%20installation/" rel="bookmark" title="MPTRAC installation">MPTRAC installation</a></li>
+          <li class="active"><a href="/Model/Model-installation/mptrac%20installation/" rel="bookmark" title="MPTRAC installation">MPTRAC installation</a></li><li><a href="/Model/Model-installation/mptrac%20run/" rel="bookmark" title="MPTRAC run">MPTRAC run</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="Overview">
         <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <img class="image" itemprop="image" alt="Shenglong Zhang"
+  <img class="image" itemprop="image" alt="Z-SL"
       data-src="/images/maomi.jpg">
-  <p class="name" itemprop="name">Shenglong Zhang</p>
+  <p class="name" itemprop="name">Z-SL</p>
   <div class="description" itemprop="description">DESS, THU</div>
 </div>
 
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">4</span>
+        <span class="count">5</span>
         <span class="name">posts</span>
       </a>
     </div>
@@ -463,10 +471,12 @@ magic zlier = Earth Science = welcome</title>
 
   <ul id="quick">
     <li class="prev pjax">
+        <a href="/Tools-for-Win-system/setup%20website/" rel="prev" title="Previous Post"><i class="ic i-chevron-left"></i></a>
     </li>
     <li class="up"><i class="ic i-arrow-up"></i></li>
     <li class="down"><i class="ic i-arrow-down"></i></li>
     <li class="next pjax">
+        <a href="/Model/Model-installation/mptrac%20run/" rel="next" title="Next Post"><i class="ic i-chevron-right"></i></a>
     </li>
     <li class="percent"></li>
   </ul>
@@ -488,10 +498,24 @@ magic zlier = Earth Science = welcome</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Tools-for-Win-system/" title="In Tools for Win-system">Tools for Win-system</a>
+<a href="/categories/Model/" title="In Model">Model</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/Model/Model-installation/" title="In Model installation">Model installation</a>
 </div>
 
-    <span><a href="/Tools-for-Win-system/introduction%20to%20hexo/" title="Introduction to Hexo">Introduction to Hexo</a></span>
+    <span><a href="/Model/Model-installation/mptrac%20run/" title="MPTRAC run">MPTRAC run</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/Model/" title="In Model">Model</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/Model/Model-installation/" title="In Model installation">Model installation</a>
+</div>
+
+    <span><a href="/Model/Model-installation/mptrac%20installation/" title="MPTRAC installation">MPTRAC installation</a></span>
   </li>
 
       
@@ -508,12 +532,10 @@ magic zlier = Earth Science = welcome</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Model/" title="In Model">Model</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/Model/Model-installation/" title="In Model installation">Model installation</a>
+<a href="/categories/Tools-for-Win-system/" title="In Tools for Win-system">Tools for Win-system</a>
 </div>
 
-    <span><a href="/Model/Model-installation/mptrac%20installation/" title="MPTRAC installation">MPTRAC installation</a></span>
+    <span><a href="/Tools-for-Win-system/introduction%20to%20hexo/" title="Introduction to Hexo">Introduction to Hexo</a></span>
   </li>
 
       
@@ -542,7 +564,7 @@ magic zlier = Earth Science = welcome</title>
     <span class="with-love">
       <i class="ic i-sakura rotate"></i>
     </span>
-    <span class="author" itemprop="copyrightHolder">Shenglong Zhang @ magic zlier</span>
+    <span class="author" itemprop="copyrightHolder">Z-SL @ magic zlier</span>
   </div>
   <div class="powered-by">
     Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
