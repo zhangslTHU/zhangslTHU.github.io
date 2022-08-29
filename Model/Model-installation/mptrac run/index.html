@@ -76,7 +76,7 @@ magic zlier = Earth Science = welcome</title>
       <i class="ic i-pen"></i>
     </span>
     <span class="text">Symbols count in article</span>
-    <span>223</span>
+    <span>8.4k</span>
     <span class="text">words</span>
   </span>
   <span class="item" title="Reading time">
@@ -84,7 +84,7 @@ magic zlier = Earth Science = welcome</title>
       <i class="ic i-clock"></i>
     </span>
     <span class="text">Reading time</span>
-    <span>1 mins.</span>
+    <span>8 mins.</span>
   </span>
 </div>
 
@@ -117,12 +117,12 @@ magic zlier = Earth Science = welcome</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="http://wx4.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
           <li class="item" data-background-image="https://images7.alphacoders.com/744/744860.png"></li>
+          <li class="item" data-background-image="http://wx4.sinaimg.cn/large/6833939bly1giclh3brzpj20zk0m8ann.jpg"></li>
           <li class="item" data-background-image="https://i.loli.net/2020/10/30/rjdhcSgEN8COBPA.jpg"></li>
-          <li class="item" data-background-image="https://images6.alphacoders.com/817/817452.png"></li>
-          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
           <li class="item" data-background-image="https://pic1.zhimg.com/v2-925686c6f46d8312e39d920acb72cb4c_r.jpg?source=1940ef5c"></li>
+          <li class="item" data-background-image="https://i.loli.net/2020/10/30/Y1CBXqgeokEs457.jpg"></li>
+          <li class="item" data-background-image="http://wx4.sinaimg.cn/large/6833939bly1gicitht3xtj20zk0m8k5v.jpg"></li>
         </ul>
       </div>
     </header>
@@ -173,11 +173,77 @@ magic zlier = Earth Science = welcome</title>
 
     <p>   这里记录了利用<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYw=="> MPTRAC 模型</span>测试的两个例子以及遇到的问题。在此过程非常感谢 MPTRAC 开发者<span class="exturl" data-url="dHRwczovL3d3dy5mei1qdWVsaWNoLmRlL2lhcy9qc2Mvc2xjcw=="> Dr. Lars Hoffmann</span> 和 LMZ 的帮助，让我成功测试了自己设计的 case。</p>
 <h1 id="1-run-the-example"><a class="markdownIt-Anchor" href="#1-run-the-example">#</a> 1. run the example</h1>
-<h1 id="2-run-the-case-of-2021-henan-precipitation"><a class="markdownIt-Anchor" href="#2-run-the-case-of-2021-henan-precipitation">#</a> 2. run the case of 2021 Henan precipitation</h1>
+<p>运行官网给的例子，一般前面安装没问题的话，就可以成功运行</p>
+<figure class="highlight bash"><figcaption data-lang="bash"><span>h </span></figcaption><table><tr><td data-num="1"></td><td><pre>$ <span class="token builtin class-name">cd</span> mptrac/projects/example</pre></td></tr><tr><td data-num="2"></td><td><pre>$ ./run.sh</pre></td></tr></table></figure><p>重点是理解官网例子脚本的含义，方便自己后面设计实验，代码命令含义参考<span class="exturl" data-url="aHR0cHM6Ly9zbGNzLWpzYy5naXRodWIuaW8vbXB0cmFjL2luZGV4Lmh0bWw="> Doxygen manual</span></p>
+<p><code>trac=../../src</code> src 目录下（ <code>mptrac/src/</code> ）放着用来计算各种变量的源文件，这一步是用来显示路径的。在 linux 环境 <code>“.”</code>  表示当前工作目录， <code>“./scrtpt”</code>  表示执行当前工作目录的脚本文件， <code>“..”</code>  表示当前目录的上一级；因为 run.sh 文件在 <code>mptrac/projects/example/</code>  下，要调用 src 下面的包，则需要先返回到 mptrac 目录下，即 “…/…/”</p>
+<p><code>rm -rf data plots &amp;&amp; mkdir -p data plots</code>  每次在创建新的文件夹存放数据和画图前先删除上次的结果，防止出错。因为此文件位置在 <code>mptrac/projects/example</code>  下，所以生成的 data 和 plots 文件夹均在相同目录下，之后出现的 <code>data/文件</code> 均表示 <code>mptrac/projects/example/data/</code>  目录下的对应文件</p>
+<p><code>time2jsec</code> :Convert date to Julian seconds， <code>t0,t1</code>  分别是模拟开始和结束的时间</p>
+<figure class="highlight shell"><figcaption data-lang="Bash"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># Setup...</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token assign-left variable">trac</span><span class="token operator">=</span><span class="token punctuation">..</span>/<span class="token punctuation">..</span>/src</pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token comment"># Create directories...</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token function">rm</span> <span class="token parameter variable">-rf</span> data plots <span class="token operator">&amp;&amp;</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> data plots</pre></td></tr><tr><td data-num="6"></td><td><pre></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token comment"># Set timestep and timerange of simulation...</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token assign-left variable">t0</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>$trac/time2jsec <span class="token number">2011</span> <span class="token number">6</span> <span class="token number">5</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span><span class="token variable">)</span></span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token assign-left variable">t1</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>$trac/time2jsec <span class="token number">2011</span> <span class="token number">6</span> <span class="token number">8</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span> <span class="token number">0</span><span class="token variable">)</span></span></pre></td></tr></table></figure><p>在 bash 中 <code>EOF</code>  是把多行输入作为一个 program 输入 (The EOF is used in bash to provide multi line input to a program,<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMjUwMDQzNi9ob3ctZG9lcy1jYXQtZW9mLXdvcmstaW4tYmFzaA=="> 链接</span>)，两个之间 EOF 之间表示 input。<br>
+the  <code>&quot;$&quot;</code>  symbol is used to define variables in the bash script<span class="exturl" data-url="aHR0cHM6Ly90bGRwLm9yZy9IT1dUTy9CYXNoLVByb2ctSW50cm8tSE9XVE8tNS5odG1s"> 链接</span><br>
+ <code>&gt;</code> outputs to a file,  <code>&gt;&gt;</code>  appends to a file,  <code>&lt;</code>  reads input from file.  <code>data/trac.ctl</code>  表示的是刚刚新建的 data 目录 (mptrac/projects/example/data) 下的 trac.ctl 文件，合起来就是把计算出来的结果输出到 data 目录下的 trac.ctl 文件</p>
+<p><code>NQ</code> :Number of quantities. their names (QNT_NAME[]) and units (QNT_UNIT[])<br>
+ t 气温，uvw 风速，z: Geopotential height at model levels (km)，ps 地表气压，pv 位涡，pt 对流层顶气压，h2o 水汽混合比，m: mass of species，theta 位温<br>
+其中温度，风场，海平面气压，（地表）位势高度是必须的（如果不是气压层数据，需要额外给模式对应的气压），水汽是根据所求的目标提供，位温位涡都是根据提供的变量算的</p>
+<p><code>metbase</code> :Basename for meteo (input) data, <code>../../tests/data/ei</code>  表示模式将会读取 <code>mptrac/tests/data/</code>  目录下所有以 <code>ei</code>  开头（或含有 ei）的输入数据，这是用来读取输入数据的。若输入数据不在 tests 目录下，则修改此命令对应目录位置即可。<br>
+remove the line “SPECIES = SO2” means the species is generic/not specified 未指定某个物质<br>
+ <code>DT_MET</code> ：Time step of meteo data 输入气象数据的时间间隔，每两个 nc 文件之间的相差时间 (s)（例子是每 24h=24*3600s 一个输入文件）<br>
+ <code>MET_DT_OUT</code> ：Time step for sampling of meteo data along trajectories (s) 采样时间（output）<br>
+ <code>CLIM_OH_FILENAME</code> :Filename of OH climatology. 氢基氧基<br>
+ <code>BOUND_MASS</code> :Boundary conditions mass per particle [kg].<br>
+ <code>BOUND_DPS</code> :Boundary conditions delta to surface pressure [hPa].<br>
+ <code>CONV_CAPE</code> :CAPE threshold for convection module [J/kg].<br>
+ <code>t_stop</code> :Stop time of simulation [s].<br>
+ <code>TDEC_TROP</code> :Life time of particles (troposphere) [s].<br>
+ <code>TDEC_STRAT</code> :Life time of particles (stratosphere) [s]. 如果去掉这两个命令，则表示粒子有着无限长的生命周期.<br>
+ <code>grid_lon0,grid_lon1,grid_lat0,grid_lat1</code> :（模拟出的）格点数据经纬度边界范围.<br>
+ <code>grid_nx,grid_ny</code> : 格点数据经纬度数据（与设置的经纬度范围一起就可以设置出经纬度间隔 / 分辨率，可与输入数据的间隔不同）</p>
+<figure class="highlight shell"><figcaption data-lang="Bash"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># Create control parameter file...</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token function">cat</span> <span class="token operator">></span> data/trac.ctl <span class="token operator">&lt;&lt;</span><span class="token string">EOF</span></pre></td></tr><tr><td data-num="3"></td><td><pre>NQ = 9</pre></td></tr><tr><td data-num="4"></td><td><pre>QNT_NAME[0] = t</pre></td></tr><tr><td data-num="5"></td><td><pre>QNT_NAME[1] = u</pre></td></tr><tr><td data-num="6"></td><td><pre>QNT_NAME[2] = v</pre></td></tr><tr><td data-num="7"></td><td><pre>QNT_NAME[3] = w</pre></td></tr><tr><td data-num="8"></td><td><pre>QNT_NAME[4] = z</pre></td></tr><tr><td data-num="9"></td><td><pre>QNT_NAME[5] = pv</pre></td></tr><tr><td data-num="10"></td><td><pre>QNT_NAME[6] = ps</pre></td></tr><tr><td data-num="11"></td><td><pre>QNT_NAME[7] = pt</pre></td></tr><tr><td data-num="12"></td><td><pre>QNT_NAME[8] = m</pre></td></tr><tr><td data-num="13"></td><td><pre>METBASE = ../../tests/data/ei</pre></td></tr><tr><td data-num="14"></td><td><pre>MET_DT_OUT = 86400.0</pre></td></tr><tr><td data-num="15"></td><td><pre>CLIM_OH_FILENAME = ../../data/clams_radical_species.nc</pre></td></tr><tr><td data-num="16"></td><td><pre>SPECIES = SO2</pre></td></tr><tr><td data-num="17"></td><td><pre>BOUND_MASS = 0.0</pre></td></tr><tr><td data-num="18"></td><td><pre>BOUND_DPS = 100.0</pre></td></tr><tr><td data-num="19"></td><td><pre>CONV_CAPE = 0.0</pre></td></tr><tr><td data-num="20"></td><td><pre>TDEC_TROP = 259200.0</pre></td></tr><tr><td data-num="21"></td><td><pre>TDEC_STRAT = 259200.0</pre></td></tr><tr><td data-num="22"></td><td><pre>DT_MET = 86400.0</pre></td></tr><tr><td data-num="23"></td><td><pre>T_STOP = <span class="token variable">$t1</span></pre></td></tr><tr><td data-num="24"></td><td><pre>GRID_LON0 = -90</pre></td></tr><tr><td data-num="25"></td><td><pre>GRID_LON1 = 60</pre></td></tr><tr><td data-num="26"></td><td><pre>GRID_LAT0 = -60</pre></td></tr><tr><td data-num="27"></td><td><pre>GRID_LAT1 = -15</pre></td></tr><tr><td data-num="28"></td><td><pre>GRID_NX = 300</pre></td></tr><tr><td data-num="29"></td><td><pre>GRID_NY = 90</pre></td></tr><tr><td data-num="30"></td><td><pre>EOF</pre></td></tr></table></figure><p>前面定义了 <code>trac=../../src</code> ，用来表示 src 的目录，并用 <code>$</code>  来定义此变量以便调用。 <code>$trac/atm_init</code>  表示调用 src 目录下 atm_init 源文件，初始化上一步读取的数据和定义的变量（data/trac.ctl），并把最后的结果输出到 atm_init.tab 文件（ <code>tab文件是存放结果的</code> ）；并定义了初始化的时间、高度 [km]、经纬度，因为初始化的是一个点，所以 t/z/lon/lat_0 和 t/z/lon/lat_1 应该是相同的</p>
+<p>接下来调用 atm_split，作用 It splits the initial small set into a larger set of air parcels</p>
+<p><code>atm files</code>  (which is position and quantities of all the air parcels at a given time) and  <code>grid files</code>  (which is mean/integrated data of all the air parcels on a regular lon-lat grid).<br>
+the variables  <code>ATM_BASENAME</code>  and  <code>GRID_BASENAME</code>  give the basename for the output. For example “atm” will be expanded to “atm_2000_01_01_00_00.tab, atm_2000_01_01_06_00.tab” … 因此最后一步会计算 atm 和 grid 两种结果，并把对应的结果存放在 atm_xxx.tab 和 grid_xxx.tab 文件里。<br>
+the output frequency is set by  <code>ATM_DT_OUT</code></p>
+<figure class="highlight shell"><figcaption data-lang="Bash"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># Set initial air parcel positions...</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token variable">$trac</span>/atm_init data/trac.ctl data/atm_init.tab <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="3"></td><td><pre>	       INIT_T0 <span class="token string">"<span class="token variable">$t0</span>"</span> INIT_T1 <span class="token string">"<span class="token variable">$t0</span>"</span> <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="4"></td><td><pre>	       INIT_Z0 <span class="token number">10.0</span> INIT_Z1 <span class="token number">10.0</span> <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="5"></td><td><pre>	       INIT_LON0 <span class="token parameter variable">-72.117</span> INIT_LON1 <span class="token parameter variable">-72.117</span> <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="6"></td><td><pre>	       INIT_LAT0 <span class="token parameter variable">-40.59</span> INIT_LAT1 <span class="token parameter variable">-40.59</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment"># Split air parcels...</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token variable">$trac</span>/atm_split data/trac.ctl data/atm_init.tab data/atm_split.tab <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="10"></td><td><pre>		SPLIT_N <span class="token number">10000</span> SPLIT_M 1e9 SPLIT_DX <span class="token number">30.0</span> SPLIT_DZ <span class="token number">1.0</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token comment"># Calculate trajectories...</span></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token builtin class-name">echo</span> <span class="token string">"data"</span> <span class="token operator">></span> data/dirlist</pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token variable">$trac</span>/trac data/dirlist trac.ctl atm_split.tab <span class="token punctuation">\</span></pre></td></tr><tr><td data-num="15"></td><td><pre>	   ATM_BASENAME atm GRID_BASENAME grid</pre></td></tr></table></figure><p><code>echo</code>  命令的输出内容如果没有特殊含义，则原内容输出到屏幕；如果输出内容有特殊含义，则输出打印其含义。echo 命令的功能是在显示器上显示一段文字， <code>一般起到一个提示的作用</code> <br>
+ <code>for</code>  循环与 <code>do,echo,done</code>  一起用<br>
+ <code>ls data/atm_2011*tab</code>  ：ls 表示打印出当前目录的清单，这个命令就是打印出 <code>mptrac/projects/example/data/</code>  目录下含有 <code>atm_2011</code>  的 tab 文件的文件名；放到 for 循环里， <code>f</code>  就是含有 <code>atm_2011</code>  的文件名（如 atm_2000_01_01_00_00.tab, atm_2000_01_01_06_00.tab,…）<br>
+ <code>echo &quot;Plot $f ...&quot;</code>  这一句命令是输出到显示屏上，提醒现在画的是哪一副图； <code>set out &quot;plots/$(basename $f).png&quot;</code>  是 gnuplot 的绘图命令，表示最后生成图片的名字（输出文件名）</p>
+<p><code>$(basename &quot;$f&quot; .tab | awk 'BEGIN&#123;FS=&quot;_&quot;&#125;&#123;print $2&quot;-&quot;$3&quot;-&quot;$4&quot;, &quot;$5&quot;:&quot;$6&quot; UTC&quot;&#125;'</code> ：basename 命令会删掉所有的前缀包括最后一个 slash（‘/’）字符，然后将字符串显示出来； <code>basename &quot;$f&quot; .tab</code>  就是把 f 的文件名去掉 <code>.tab</code> ，只留前面的文件名。awk 是 bash 里的文本处理工具（遍历文本）,FS (Field Separator) 是与 awk 连用的列分割符：决定了将一行划分为几段，预设值是 空白符 (空白和 Tab)。<br>
+所以这一句的命令就是把 <code>f对应的文件名(如atm_2011_06_05_00_00.tab)</code>  去掉.tab 后剩下的文件名 ( <code>如atm_2011_06_05_00_00</code> )，遍历文本，用 <code>_</code> 分割为 6 份（用 1-6 数字表示，如 1 表示 atm），之后输出 2-6 的内容，并用 <code>-</code>  和 <code>:</code>  连接，所以最后 <code>t</code>  的内容就是如 <code>2011-06-05,00:00</code></p>
+<p><code>set terminal pngcairo size 1000,1000 font 'Times New Roman,10'</code>   格式，大小和字体<br>
+ <code>cbra</code>  colorbar range<br>
+ <code>cbla</code>  colorbar label<br>
+ <code>set mxticks</code>  设置 x 轴子刻度数目</p>
+<p>plot 用于绘制 2D 函数和数据，关于 gnuplot 画图的详细命令可以看<span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODQ2ODA3Ny9hcnRpY2xlL2RldGFpbHMvMTAxMDY5MzY1">超详细的 gnuplot 使用教程</span>。gnuplot 可以读取 txt,dat 等格式文件。<br>
+ <code>plot &quot;$f&quot;</code>  表示读取 tab 文件， <code>u 3:4:(1.*\$2)</code>  u=using，表示用文件的第三，四列作图； <code>w d lc pal z t &quot;&quot;</code> ,w=with (with 后边跟需要指定的样式),  <code>d=dots</code>  每一点绘一细点， <code>lc=line color</code>  曲线颜色， <code>t &quot;&quot;</code> t=title 标题为空</p>
+<p><code>&quot;../data/wcl.tab&quot; u 1:2 w l lt -1 t &quot;&quot;</code>  读取 wcl.tab 文件的数据的前两列（u 1:2 表示使用文件中 1，2 列作为 x，y 作图）， <code>l=line</code> ：用曲线表示， <code>lt -1</code> ：lt=LineType 线型，主要设置的是线条颜色，-1 表示颜色，标题为空</p>
+<p><code>&quot;-&quot; u 1:2 w p pt 9 ps 3 lc rgbcolor &quot;red&quot; t &quot;&quot;</code>  读取文件前两列， <code>p:points</code>  用点表示， <code>pt 9</code> :pointtype 点的样式 / 形状是实心正三角， <code>ps 3</code> ：pointsize 点的大小是 3, <code>lc rgbcolor &quot;red&quot;</code>  曲线颜色是红色</p>
+<figure class="highlight shell"><figcaption data-lang="Bash"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># Plot air parcel data...</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token builtin class-name">echo</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token keyword">for</span> <span class="token for-or-select variable">f</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">ls</span> data/atm_2011*tab<span class="token variable">)</span></span> <span class="token punctuation">;</span> <span class="token keyword">do</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token builtin class-name">echo</span> <span class="token string">"Plot <span class="token variable">$f</span> ..."</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token assign-left variable">t</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> <span class="token string">"<span class="token variable">$f</span>"</span> .tab <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'BEGIN&#123;FS="_"&#125;&#123;print $2"-"$3"-"$4", "$5":"$6" UTC"&#125;'</span><span class="token variable">)</span></span></pre></td></tr><tr><td data-num="6"></td><td><pre>    gnuplot <span class="token operator">&lt;&lt;</span><span class="token string">EOF</span></pre></td></tr><tr><td data-num="7"></td><td><pre>set out "plots/<span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $f<span class="token variable">)</span></span>.png"</pre></td></tr><tr><td data-num="8"></td><td><pre>set term png truecolor crop linewidth 2 font "Helvetica" 24 size 1440,900</pre></td></tr><tr><td data-num="9"></td><td><pre>set size ratio 0.75</pre></td></tr><tr><td data-num="10"></td><td><pre>set pal def</pre></td></tr><tr><td data-num="11"></td><td><pre>set cbra [5:15]</pre></td></tr><tr><td data-num="12"></td><td><pre>set cbla "altitude [km]"</pre></td></tr><tr><td data-num="13"></td><td><pre>set xla "longitude [deg]"</pre></td></tr><tr><td data-num="14"></td><td><pre>set yla "latitude [deg]"</pre></td></tr><tr><td data-num="15"></td><td><pre>set xtics 30</pre></td></tr><tr><td data-num="16"></td><td><pre>set ytics 10</pre></td></tr><tr><td data-num="17"></td><td><pre>set mxtics 6</pre></td></tr><tr><td data-num="18"></td><td><pre>set mytics 5</pre></td></tr><tr><td data-num="19"></td><td><pre>set xra [-90:60]</pre></td></tr><tr><td data-num="20"></td><td><pre>set yra [-60:-15]</pre></td></tr><tr><td data-num="21"></td><td><pre>set grid</pre></td></tr><tr><td data-num="22"></td><td><pre>set title "MPTRAC | <span class="token variable">$t</span>"</pre></td></tr><tr><td data-num="23"></td><td><pre>plot "<span class="token variable">$f</span>" u 3:4:(1.*\<span class="token variable">$2</span>) w d lc pal z t "", \</pre></td></tr><tr><td data-num="24"></td><td><pre>    "../data/wcl.tab" u 1:2 w l lt -1 t "", \</pre></td></tr><tr><td data-num="25"></td><td><pre>    "-" u 1:2 w p pt 9 ps 3 lc rgbcolor "red" t ""</pre></td></tr><tr><td data-num="26"></td><td><pre>-72.117 -40.59</pre></td></tr><tr><td data-num="27"></td><td><pre>e</pre></td></tr><tr><td data-num="28"></td><td><pre>EOF</pre></td></tr><tr><td data-num="29"></td><td><pre><span class="token keyword">done</span></pre></td></tr></table></figure><p>在这一部分命令与上面一个大致相同，但 splot 绘制 3D 曲面和数据的 2D 投影。<br>
+set pm3d 设置当前为 pm3d 模式，构造一个有颜色的非透明的图形（三维）<br>
+set pal def () 改变 pm3d 默认色板</p>
+<figure class="highlight shell"><figcaption data-lang="Bash"><span>l</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token comment"># Plot grid data...</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">for</span> <span class="token for-or-select variable">f</span> <span class="token keyword">in</span> <span class="token variable"><span class="token variable">$(</span><span class="token function">ls</span> data/grid_2011*tab<span class="token variable">)</span></span> <span class="token punctuation">;</span> <span class="token keyword">do</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token builtin class-name">echo</span> <span class="token string">"Plot <span class="token variable">$f</span> ..."</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token assign-left variable">t</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> <span class="token string">"<span class="token variable">$f</span>"</span> .tab <span class="token operator">|</span> <span class="token function">awk</span> <span class="token string">'BEGIN&#123;FS="_"&#125;&#123;print $2"-"$3"-"$4", "$5":"$6" UTC"&#125;'</span><span class="token variable">)</span></span></pre></td></tr><tr><td data-num="5"></td><td><pre>    gnuplot <span class="token operator">&lt;&lt;</span><span class="token string">EOF</span></pre></td></tr><tr><td data-num="6"></td><td><pre>set out "plots/<span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $f<span class="token variable">)</span></span>.png"</pre></td></tr><tr><td data-num="7"></td><td><pre>set term png truecolor crop linewidth 2 font "Helvetica" 24 size 1440,900</pre></td></tr><tr><td data-num="8"></td><td><pre>set size ratio 0.75</pre></td></tr><tr><td data-num="9"></td><td><pre>set pm3d map interp 4,4</pre></td></tr><tr><td data-num="10"></td><td><pre>set pal def (0 'gray90', 1 'blue', 2 'cyan', 3 'green', 4 'yellow', 5 'orange', 6 'red')</pre></td></tr><tr><td data-num="11"></td><td><pre>set cbla "column density [g/m^2]"</pre></td></tr><tr><td data-num="12"></td><td><pre>set cbra [0:1]</pre></td></tr><tr><td data-num="13"></td><td><pre>set xla "longitude [deg]"</pre></td></tr><tr><td data-num="14"></td><td><pre>set yla "latitude [deg]"</pre></td></tr><tr><td data-num="15"></td><td><pre>set xtics 30</pre></td></tr><tr><td data-num="16"></td><td><pre>set ytics 10</pre></td></tr><tr><td data-num="17"></td><td><pre>set mxtics 6</pre></td></tr><tr><td data-num="18"></td><td><pre>set mytics 5</pre></td></tr><tr><td data-num="19"></td><td><pre>set xra [-90:60]</pre></td></tr><tr><td data-num="20"></td><td><pre>set yra [-60:-15]</pre></td></tr><tr><td data-num="21"></td><td><pre>set grid</pre></td></tr><tr><td data-num="22"></td><td><pre>set title "MPTRAC | <span class="token variable">$t</span>"</pre></td></tr><tr><td data-num="23"></td><td><pre>splot "<span class="token variable">$f</span>" u 3:4:(1e3*\<span class="token variable">$8</span>) t "", \</pre></td></tr><tr><td data-num="24"></td><td><pre>    "../data/wcl.tab" u 1:2:(0) w l lt -1 t "", \</pre></td></tr><tr><td data-num="25"></td><td><pre>    "-" u 1:2:3 w p pt 9 ps 3 lc rgbcolor "red" t ""</pre></td></tr><tr><td data-num="26"></td><td><pre>-72.117 -40.59 0</pre></td></tr><tr><td data-num="27"></td><td><pre>e</pre></td></tr><tr><td data-num="28"></td><td><pre>EOF</pre></td></tr><tr><td data-num="29"></td><td><pre><span class="token keyword">done</span></pre></td></tr></table></figure><h1 id="2-run-the-case-of-2021-henan-precipitation"><a class="markdownIt-Anchor" href="#2-run-the-case-of-2021-henan-precipitation">#</a> 2. run the case of 2021 Henan precipitation</h1>
+<p>据开发者 Lars 所言：Preparing/converting the meteo data for use with MPTRAC is maybe the most difficult step in getting the model running for a new study。对使用 MPTRAC 的人来说，准备数据是最麻烦也最容易出错的一个过程，以之前跑 MPTRAC 的经验来说，当 input data 不符合 MPTRAC 的要求时，model 往往会报错。故我们首先需要了解 input data 时哪些。</p>
+<p>根据<span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjUxOTQvZ21kLTE1LTI3MzEtMjAyMg==">原文</span>:<br>
+At a minimum, MPTRAC requires  <code>3-D fields</code>  of temperature  <code>T</code>  , zonal wind  <code>u</code> , and meridional wind  <code>v</code> . The vertical velocity  <code>ω</code> , specific humidity  <code>q</code> , ozone mass mixing ratio  <code>x_O3</code>  , cloud liquid water content ( <code>CLWC</code> ), cloud rain water content ( <code>CRWC</code> ), cloud ice water content ( <code>CIWC</code> ), and cloud snow water content ( <code>CSWC</code> ) are  <code>optional</code>  but often needed for specific applications. The model also requires the surface pressure  <code>ps</code>  or log-surface pressure ( <code>ln ps</code> ) and the geopotential height at the surface  <code>Z_g </code> to be provided as  <code>2-D fields</code> . Optionally, near-surface temperature  <code>T_2m</code>  and near-surface winds ( <code>u_10m,v_10m</code> ) can be ingested from the input files.<br>
+The model requires the input data in terms of separate NetCDF files at regular time steps. all the meteo variables will be have to be included in the same file.</p>
+<p>也就是说 input data 必须需要包含 <code>三维数据（pressure levels）：温度t，风场uvw，比湿q，臭氧O3</code> ； <code>二维数据（surface level）:地表气压ps，地表位势高度z</code> 。除此之外，还往往在 input data 里加入三维数据：云水、云雨、云冰、云雪含量（ <code>clwc,crwc,ciwc,cswc</code> ）和二维数据：地表 2 米气温（ <code>t2m</code> ）和 10 米风速（ <code>u10m,v10m</code> ）。</p>
+<p>需要注意的是，input data 是按时间来区分的，也就是说准备每一个的 input data 都只有一个时间（时间维度是 1），并且应该包含所有所需变量。</p>
+<p>重点</p>
+<ul>
+<li>input data 文件命名形式 <code>ei_20xx_MM_DD_00.nc</code></li>
+<li>MPTRAC 的时间是 double，如 20180719.5 表示 2018 年 7 月 19 日中午 12 点</li>
+<li>通过 <code>name of the dimension</code>  来区分，dimension 的 name 必须是 <code>time,lev,lat,lon</code></li>
+</ul>
 <h1 id="3-reference"><a class="markdownIt-Anchor" href="#3-reference">#</a> 3. reference</h1>
 <p>(1) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYw==">MPTRAC-Github</span><br>
 (2) <span class="exturl" data-url="aHR0cHM6Ly9zbGNzLWpzYy5naXRodWIuaW8vbXB0cmFjL2luZGV4Lmh0bWw=">MPTRAC-website/Doxygen manual</span> or <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3NsY3MtanNjL21wdHJhYy93aWtp">MPTRAC wiki</span><br>
-(3) <span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjUxOTQvZ21kLTE1LTI3MzEtMjAyMg==">GMD-paper</span></p>
+(3) <span class="exturl" data-url="aHR0cHM6Ly9kb2kub3JnLzEwLjUxOTQvZ21kLTE1LTI3MzEtMjAyMg==">GMD-paper</span><br>
+(4) <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODQ2ODA3Ny9hcnRpY2xlL2RldGFpbHMvMTAxMDY5MzY1">超详细的 gnuplot 使用教程</span><br>
+ (5) <span class="exturl" data-url="aHR0cHM6Ly93d3cuZG91YmFuLmNvbS9ub3RlLzI0NDg2NjUwNy8/X2k9MTc3MjU0NEZKeEJYWHYsMTc3Mjg3OUZKeEJYWHY=">GNUPLOT 使用小结</span><br>
+ (6) <span class="exturl" data-url="aHR0cHM6Ly93d3cubGludXh0b3AuY24vY29tbWFuZC9hd2suaHRtbA==">Linux 常用命令 - awk</span><br>
+(7) <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQyMDM2ODI0L2FydGljbGUvZGV0YWlscy84NTIyNjE2OQ==">SHELL——awk 两个特殊模式（BEGIN 和 END）及 awk 高级应用（条件判断、循环</span><br>
+ (8) <span class="exturl" data-url="aHR0cHM6Ly93d3cuY25ibG9ncy5jb20vY2hlbndlbnlhbi9wLzc0NjQ2MTkuaHRtbA==">linux 批量修改分隔符</span><br>
+ (9) <span class="exturl" data-url="aHR0cHM6Ly93d3cuamlhbnNodS5jb20vcC9iM2I4MWZjYWQ4ZTM=">shell 命令 basename</span><br>
+(10) <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhb3Jhbjg3L2FydGljbGUvZGV0YWlscy8xMjI5NzU1NTc=">shell 脚本 for 循环</span><br>
+ (11) <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2x4YndvbGYvYXJ0aWNsZS9kZXRhaWxzLzc3ODUyNDQ4">在 shell 脚本中使用 ls 命令的注意事项</span></p>
 
       <div class="tags">
           <a href="/tags/model/" rel="tag"><i class="ic i-tag"></i> model</a>
@@ -192,7 +258,7 @@ magic zlier = Earth Science = welcome</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">Edited on</span>
-    <time title="Modified: 2022-08-28 22:11:26" itemprop="dateModified" datetime="2022-08-28T22:11:26+08:00">2022-08-28</time>
+    <time title="Modified: 2022-08-29 20:57:25" itemprop="dateModified" datetime="2022-08-29T20:57:25+08:00">2022-08-29</time>
   </span>
 </div>
 
@@ -386,12 +452,10 @@ magic zlier = Earth Science = welcome</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Model/" title="In Model">Model</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/Model/Model-installation/" title="In Model installation">Model installation</a>
+<a href="/categories/Python/" title="In Python">Python</a>
 </div>
 
-    <span><a href="/Model/Model-installation/mptrac%20installation/" title="MPTRAC installation">MPTRAC installation</a></span>
+    <span><a href="/Python/python-skills/" title="Python Skills">Python Skills</a></span>
   </li>
 
       
@@ -408,10 +472,10 @@ magic zlier = Earth Science = welcome</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Python/" title="In Python">Python</a>
+<a href="/categories/Tools-for-Win-system/" title="In Tools for Win-system">Tools for Win-system</a>
 </div>
 
-    <span><a href="/Python/python-skills/" title="Python Skills">Python Skills</a></span>
+    <span><a href="/Tools-for-Win-system/setup%20website/" title="setup website">setup website</a></span>
   </li>
 
       
@@ -430,10 +494,12 @@ magic zlier = Earth Science = welcome</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/Tools-for-Win-system/" title="In Tools for Win-system">Tools for Win-system</a>
+<a href="/categories/Model/" title="In Model">Model</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/Model/Model-installation/" title="In Model installation">Model installation</a>
 </div>
 
-    <span><a href="/Tools-for-Win-system/setup%20website/" title="setup website">setup website</a></span>
+    <span><a href="/Model/Model-installation/mptrac%20installation/" title="MPTRAC installation">MPTRAC installation</a></span>
   </li>
 
   </ul>
