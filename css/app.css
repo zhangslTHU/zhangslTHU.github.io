@@ -2514,16 +2514,10 @@ main >.inner {
   color: #191717;
 }
 .social .item.google::before {
-  background-color: oogl;
+  background-color: #191717;
 }
 .social .item.google i {
-  color: oogl;
-}
-.social .item.about::before {
-  background-color: #3b5998;
-}
-.social .item.about i {
-  color: #3b5998;
+  color: #191717;
 }
 .social .item.stackoverflow::before {
   background-color: tack-overflo;
